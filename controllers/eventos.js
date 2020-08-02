@@ -15,7 +15,7 @@ var controller = {
 		
 	},
 	saveEvent: function(req, res){
-		var event = new Event();
+		var event = new event();
 		var params = req.body;
 		
 		event.titulo = params.titulo;
@@ -36,6 +36,17 @@ var controller = {
 		return res.status(200).send({
 			message:"funcionando"
 		})
+	},
+	getEvent: function(req, res){
+		var eventId = req.params,id;
+
+		event.findById(eventId, (err, event )=>{
+
+			if(err) return res.status(500).send({message:'error al guardar el evento'});
+			if(!event) return res.status(404).send({message:'error al guardar el eventO'});
+			return res.status(200).send({event});
+		})
+
 	}
 };
 module.exports = controller;

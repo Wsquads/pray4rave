@@ -19,4 +19,4 @@ var Event = schema({
 
 //exportar
 
-module.exports = mongoose.model('eventos', Event);
+module.exports = mongoose.model('event', Event);
