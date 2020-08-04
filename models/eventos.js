@@ -5,10 +5,10 @@ var schema = mongoose.Schema;
 
 //schema
 
-var Event = schema({
+var EventSchema = schema({
 	
 	titulo: String,
-	updateDate: Date,
+	updateDate:String,
 	foto: String,
 	descripcion: String,
 	etiquetas: String,
@@ -19,4 +19,4 @@ var Event = schema({
 
 //exportar
 
-module.exports = mongoose.model('event', Event);
+module.exports = mongoose.model('Event', EventSchema);

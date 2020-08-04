@@ -1,6 +1,6 @@
 'use strict'
 
-var event = require("../models/eventos");
+var Event = require("../models/eventos");
 
 var controller = {
 	home: function(req, res){
@@ -15,7 +15,7 @@ var controller = {
 		
 	},
 	saveEvent: function(req, res){
-		var event = new event();
+		var event = new Event();
 		var params = req.body;
 		
 		event.titulo = params.titulo;
@@ -32,19 +32,18 @@ var controller = {
 			return res.status(200).send({event: eventStored});
 			
 		});
-
-		return res.status(200).send({
-			message:"funcionando"
-		})
 	},
 	getEvent: function(req, res){
 		var eventId = req.params,id;
 
-		event.findById(eventId, (err, event )=>{
+		if(eventId == null) return res.status(404).send({message: 'el evento no existe'});
 
+		Event.findById(eventId, (err, event) => {
 			if(err) return res.status(500).send({message:'error al guardar el evento'});
 			if(!event) return res.status(404).send({message:'error al guardar el eventO'});
-			return res.status(200).send({event});
+			return res.status(200).send({
+				event
+			});
 		})
 
 	}

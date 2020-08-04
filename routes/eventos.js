@@ -8,8 +8,8 @@ var eventController = require('../controllers/eventos');
 var router = express.Router();
 router.get('/home', eventController.home);
 router.post('/test', eventController.test);
-router.post('/saveEvent',eventController.saveEvent);
-router.get('/getEvent', eventController.getEvent);
+router.post('/saveEvent', eventController.saveEvent);
+router.get('/getEvent/:id?', eventController.getEvent);
 
 
 module.exports = router;
