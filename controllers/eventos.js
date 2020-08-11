@@ -34,9 +34,8 @@ var controller = {
 		});
 	},
 	getEvent: function(req, res){
-		var eventId = req.params,id;
+		var eventId = req.params.id;
 
-		if(eventId == null) return res.status(404).send({message: 'el evento no existe'});
 
 		Event.findById(eventId, (err, event) => {
 			if(err) return res.status(500).send({message:'error al guardar el evento'});
