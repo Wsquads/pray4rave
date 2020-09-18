@@ -6,17 +6,15 @@ var schema = mongoose.Schema;
 //schema
 
 var MiembrosSchema = Schema({
-	id: Number,
+	
 	nombre: String,
 	birthDate: Date,
 	foto: String,
-	descripcion: String,
 	etiquetas: String,
-	apellidos: String,
-	pseudonimo: String
+	apellidos: String
 
 });
 
 //exportar
 
-module.exports = mongoose.model('miembros', MiembrosSchema);
+module.exports = mongoose.model('Miembro', MiembrosSchema);

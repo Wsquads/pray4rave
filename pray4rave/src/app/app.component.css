@@ -1,0 +1,15 @@
+.homeSection{
+    margin-top: 75px ;
+}
+.showMore{
+    border-radius: 50%;
+    font-size: 30px;
+    padding: 0px 12px 4px  12px;
+
+}
+.showMore a{
+    text-decoration: none;
+}
+.about{
+    font-size: 22px;
+}
