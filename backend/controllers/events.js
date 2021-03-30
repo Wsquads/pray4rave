@@ -1,6 +1,6 @@
 'use strict'
 
-var Event = require("../models/eventos");
+var Event = require("../models/events");
 
 var controller = {
 	home: function(req, res){

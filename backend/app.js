@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 //cargar rutas
 
-var events  = require('./routes/eventos');
+var events  = require('./routes/events');
 
 //rutas
 

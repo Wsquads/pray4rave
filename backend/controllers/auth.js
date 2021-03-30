@@ -1,19 +1,22 @@
-const User = require('./auth/auth.dao');
+
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'secretkey123456';
 const bcrypt = require('bcryptjs');
-const Miembro = require('../models/miembros');
+const User = require('../models/users');
 
 var controller = {
     createUser: function(req, res){
-        var User = new Miembro();
+        var User = new User();
         var params = req.body;
 
-        User.nombre = params.nombre;
+        User.name = params.name;
+        User.nickname = params.nickname;
+        User.surname = params.surname;
+        User.email= params.email;
         User.birthDate = params.birthDate;
-        User.foto = params.foto;
-        User.etiquetas = params.etiquetas;
-        User.apellidos = params.apellidos;
+        User.img = params.img;
+        User.link = params.link;
+        User.timestamps = params.timestamps;
         
 
         User.save((err, userStored) =>{
