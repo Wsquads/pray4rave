@@ -15,7 +15,8 @@ var UserSchema = Schema({
 	birthDate: Date,
 	link: String,
 	img: String,
-	timestamps: String
+	created_at: String,
+	role: Number
 	
 });
 
