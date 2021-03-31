@@ -16,6 +16,7 @@ var UserSchema = Schema({
 	link: String,
 	img: String,
 	timestamps: String
+	
 });
 
 //exportar

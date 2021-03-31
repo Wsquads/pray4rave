@@ -2,6 +2,7 @@
 
 var Event = require("../models/events");
 
+
 var controller = {
 	home: function(req, res){
 		return res.status(200).send({

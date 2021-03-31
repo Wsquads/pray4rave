@@ -13,10 +13,11 @@ app.use(bodyParser.json());
 //cargar rutas
 
 var events  = require('./routes/events');
-
+var auth  = require('./routes/auth');
 //rutas
 
 app.use('/api', events);
+app.use('/auth', auth);
 
 // exportar
 module.exports = app;
