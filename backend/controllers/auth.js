@@ -1,8 +1,11 @@
 
-const User = require('../models/users');
-var moment = require('moment');
-var jwt  =require('../providers/auth');
 const bcrypt = require('bcrypt-nodejs');
+var moment = require('moment');
+var mongoosePaginate = require('mongoose-pagination');
+const upload = require("../middlewares/imgUser");
+
+const User = require('../models/users');
+var jwt  =require('../providers/auth');
 const thisMoment = moment();
 
 var controller = {
@@ -16,7 +19,7 @@ var controller = {
             user.surname = params.surname;
             user.email= params.email;
             user.birthDate = null;
-            user.img = null;
+            user.image = null;
             user.role = 0;
             user.link = params.link;
             user.created_at = thisMoment;
@@ -80,9 +83,9 @@ var controller = {
                                 token: jwt.createToken(user)
                             });
                         }else{
-                            user.password = undefined;
-                            return res.status(200).send({user: user});
-
+                            return  res.status(200).send({
+                                user: user
+                            });
                         }
                     }else if(err){
                         return res.status(404).send({message: 'error en log de usuario'});
@@ -96,11 +99,19 @@ var controller = {
     },
     //metodo para devolver los usuarios 
     getUsers: function(req, res){
-        User.find({}).exec((err, users) =>{
+        var user_Id = req.user.sub;
+        var page = 1;
+        if(req.params.page){
+            page = req.params.page;
+        }
+        var items = 3;
+        User.find().sort('_id').paginate(page, items, (err, users, total) =>{
 			if(err) return res.status(500).send({message:'error al mostrar los usuarios'});
-			if(!users) return res.status(404).send({message:'no hay usuarios'});
-			return res.status(200).send({users});
+			if(!users) return res.status(404).send({message:'no hay ninguna tabla de usuarios'});
+			return res.status(200).send({users, total, pages: Math.ceil(total/items)});
 		});
+
+
     },
 
     // metodo para devolver usuario en base a un id
@@ -117,6 +128,9 @@ var controller = {
     // metodo para eliminar un usuario
     deleteUser: function(req, res){
         var userId = req.params.id;
+        if (userId != req.user.sub){
+            return res.status(500).send({message:'no eres este usuario'});
+        }
 
 		User.findByIdAndRemove(userId, {useFindAndModify: false}, (err, userRemove) =>{
 			if(err) return res.status(500).send({message:'error al eliminar el usuario'});
@@ -128,14 +142,39 @@ var controller = {
     // metodo para actualizar un usuario
     updateUser: function(req, res){
         var userId = req.params.id;
-		var update = req.body;
+        var update = req.body;
+        delete update.password;
 
+        if (userId != req.user.sub){
+            return res.status(500).send({message:'no eres este usuario'});
+        }
 		User.findByIdAndUpdate(userId, update, {new:true, useFindAndModify: false}, (err, userUpdate) => {
 			if(err) return res.status(500).send({message:'error al guardar el evento'});
 			if(!userUpdate) return res.status(404).send({message:'error al guardar el eventO'});
 			return res.status(200).send({event: userUpdate});
 		});
-    }
+    },
+    uploadImg: async (req, res) => {
+        var userId = req.params.id;
+        if (userId != req.user.sub){
+            return res.status(500).send({message:'no eres este usuario'});
+        }
+        // const img = fs.readFileSync(path.join(__dirname + './uploads/users'));
+        try {
+            await upload(req, res);
+
+            console.log(req.file);
+            if (req.file == undefined) {
+            return res.send(`You must select a file.`);
+            }
+
+            return res.send(`File has been uploaded.`);
+        } catch (error) {
+            console.log(error);
+            return res.send(`Error when trying upload image: ${error}`);
+        }
+        }
+
 
 }
 

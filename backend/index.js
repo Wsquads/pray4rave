@@ -1,17 +1,18 @@
 'use strict'
 var mongoose = require('mongoose');
 var app = require('./app');
-var port = 3700;
+var config = require('./config.json');
+
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/pray4rave', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(config.bbdd, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(() => {
 		console.log("conexion establecida");
 
 		// crear servidor
 
-		app.listen(port, () => {
+		app.listen(config.port, () => {
 			console.log("servidor funcionando");
 		});
 

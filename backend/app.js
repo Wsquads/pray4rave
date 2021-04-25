@@ -2,6 +2,12 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var multer = require('multer');
+var morgan = require('morgan');
+var path = require('path');
+
+
+
 
 var app = express();
 
@@ -9,6 +15,9 @@ var app = express();
 //middleware
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
+
+
 
 //cargar rutas
 

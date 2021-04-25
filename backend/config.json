@@ -1,0 +1,5 @@
+{
+    "port": 3700,
+    "SECRET_KEY":"secretkey_12345lfhslkdfjhlsfdbs_ASDFASDsbfwjekhhfl6$laura%dfsdf¬SFDSDFJKSyaud65a7sd0",
+    "bbdd":"mongodb://localhost:27017/pray4rave"
+}

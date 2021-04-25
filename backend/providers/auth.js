@@ -2,7 +2,7 @@
 
 var jwt = require('jwt-simple');
 var moment = require('moment');
-const SECRET_KEY = 'secretkey_12345lfhslkdfjhlsfdbs_ASDFASDsbfwjekhhfl6$laura%dfsdf¬SFDSDFJKSyaud65a7sd0';
+var config = require('../config.json');
 
 exports.createToken = function(user){
     var payload = {
@@ -15,5 +15,5 @@ exports.createToken = function(user){
         create_at: moment(),
         expires_at: moment().add(30, 'minutes')
     };
-    return jwt.encode(payload, SECRET_KEY);
+    return jwt.encode(payload, config.SECRET_KEY);
 }
